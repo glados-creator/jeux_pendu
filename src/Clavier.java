@@ -1,10 +1,8 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
-import javafx.scene.shape.Circle ;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -25,8 +23,15 @@ public class Clavier extends TilePane{
      * @param actionTouches le contrôleur des touches
      * @param tailleLigne nombre de touches par ligne
      */
-    public Clavier(String touches, EventHandler<ActionEvent> actionTouches) {
-        // A implémenter
+    public Clavier(String touches, EventHandler<ActionEvent> actionTouches,int tailleLigne) {
+        this.clavier = new ArrayList<>();
+        this.setPrefColumns(13);
+        this.setMaxWidth(Region.USE_PREF_SIZE);
+        for (int i = 0; i < touches.length(); i++) {
+            Button tmp = new Button();
+            tmp.setOnAction(actionTouches);
+            this.clavier.add(tmp);
+        }
     }
 
     /**
@@ -34,6 +39,8 @@ public class Clavier extends TilePane{
      * @param touchesDesactivees une chaine de caractères contenant la liste des touches désactivées
      */
     public void desactiveTouches(Set<String> touchesDesactivees){
-        // A implémenter
+        for (String current : touchesDesactivees){
+            this.clavier.get((int)current.charAt(0)-'a').setDisable(true); // why isn t the handler that self disable ?
+        }
     }
 }
