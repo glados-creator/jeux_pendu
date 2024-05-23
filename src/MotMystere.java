@@ -1,19 +1,54 @@
 import java.util.Set;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Modèle pour le jeu du pendu.
  */
 public class MotMystere {
     // constantes pour gérer les différents niveaux de jeu
-    /** Niveau FACILE : la première lettre et la dernière lettre du mot à trouver sont données ainsi que les éventuels caractères non alphabétiques (traits d'union par exemple)*/
-    public final static int FACILE = 0;
-    /** Niveau MOYEN : la première lettre du mot à trouver est donnée ainsi que les traits d'union si le mot à trouver en comporte */
-    public final static int MOYEN = 1;
-    /** Niveau DIFFICILE : seuls les traits d'union si le mot à trouver en comporte */
-    public final static int DIFFICILE = 2;
-    /** Niveau EXPERT : rien n'est donné, ni lettre ni trait d'union */
-    public final static int EXPERT = 3;
+    // nope mtn c est un enum
+    /** enum Difficulter */
+    public enum Difficulter {
+        /** Niveau FACILE : la première lettre et la dernière lettre du mot à trouver sont données ainsi que les éventuels caractères non alphabétiques (traits d'union par exemple)*/
+        FACILE(0),
+        /** Niveau MOYEN : la première lettre du mot à trouver est donnée ainsi que les traits d'union si le mot à trouver en comporte */
+        MOYEN(1),
+        /** Niveau DIFFICILE : seuls les traits d'union si le mot à trouver en comporte */
+        DIFFICILE(2),
+        /** Niveau EXPERT : rien n'est donné, ni lettre ni trait d'union */
+        EXPERT(3);
+
+        /** private final int inner */
+        private final int inner;
+        /**
+         * Difficulter enum contructor
+         * @param value int the value
+         */
+        Difficulter(int value){inner = value;}
+        /**
+         * get the value
+         * @return int value
+         */
+        int value(){return inner;}
+        /** private static final Map[Integer, Difficulter] reverse the inner reversed dictionary */
+        private static final Map<Integer, Difficulter> reverse = new HashMap<>();
+        /** static context to put the reversed dict */
+        static {
+            for (Difficulter e: values()) {
+                reverse.put(e.inner, e);
+            }
+        }
+        /** 
+         * FromValue
+         * @param inner the start int
+         * @return Difficulter the enum value
+         */
+        public static Difficulter FromValue(Integer inner) {
+            return reverse.get(inner);
+        }
+    };
    
 
     /**
@@ -23,7 +58,7 @@ public class MotMystere {
     /**
      * le niveau de jeu
      */
-    private int niveau;
+    private Difficulter niveau;
     /**
      * chaine contenant les lettres déjà trouvées et des * à la place des lettres non encore trouvées
      */
@@ -87,8 +122,8 @@ public class MotMystere {
      * @param niveau le niveau de jeu
      * @param nbErreursMax  le nombre total d'essais autorisés
      */
-    private void initMotMystere(String motATrouver, int niveau, int nbErreursMax){
-        this.niveau =niveau;
+    private void initMotMystere(String motATrouver, int d_niveau, int nbErreursMax){
+        this.niveau =Difficulter.FromValue(Integer.valueOf(d_niveau));
         this.nbEssais=0;
         this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
         this.motCrypte = "";
@@ -96,7 +131,7 @@ public class MotMystere {
 
         nbLettresRestantes=0;
         
-        if (niveau == MotMystere.EXPERT || niveau == MotMystere.DIFFICILE){
+        if (niveau == Difficulter.EXPERT || niveau == Difficulter.DIFFICILE){
             motCrypte = "*"; // premiere lettre cachée
             this.nbLettresRestantes+=1;
         }
@@ -106,7 +141,7 @@ public class MotMystere {
         
         for (int i=1; i<motATrouver.length()-1; i++){
             char lettre = this.motATrouver.charAt(i);
-            if (this.niveau == MotMystere.EXPERT || Character.isAlphabetic(lettre)){
+            if (this.niveau == Difficulter.EXPERT || Character.isAlphabetic(lettre)){
                 motCrypte += "*"; // lettre cachée
                 this.nbLettresRestantes += 1;
             }   
@@ -115,7 +150,7 @@ public class MotMystere {
             }
         }
         
-        if (niveau != MotMystere.FACILE){ // dernière lettre révélée
+        if (niveau != Difficulter.FACILE){ // dernière lettre révélée
             motCrypte += "*";
             this.nbLettresRestantes += 1;
         }
@@ -138,21 +173,21 @@ public class MotMystere {
      * @return le niveau de jeu
      */
     public int getNiveau(){
-        return this.niveau;
+        return this.niveau.value();
     }
 
     /** réinitialise le jeu avec un nouveau à trouver
      * @param motATrouver le nouveau mot à trouver
      */
     public void setMotATrouver(String motATrouver) {
-        this.initMotMystere(motATrouver, this.niveau, this.nbEerreursMax);
+        this.initMotMystere(motATrouver, this.niveau.value(), this.nbEerreursMax);
     }
 
     /**
      * Réinitialise le jeu avec un nouveau mot à trouver choisi au hasard dans le dictionnaire
      */
     public void setMotATrouver() {
-        this.initMotMystere(this.dict.choisirMot(), this.niveau, this.nbEerreursMax);
+        this.initMotMystere(this.dict.choisirMot(), this.niveau.value(), this.nbEerreursMax);
     }
 
     /**
@@ -160,7 +195,7 @@ public class MotMystere {
      * @param niveau le nouveau niveu de jeu
      */
     public void setNiveau(int niveau){
-        this.niveau = niveau;
+        this.niveau = Difficulter.FromValue(Integer.valueOf(niveau));
     }
 
     /**

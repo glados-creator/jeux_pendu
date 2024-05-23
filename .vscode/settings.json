@@ -1,0 +1,13 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.base.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.controls.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.fxml.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.graphics.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.media.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.swing.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.web.jar",
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx-swt.jar"
+    ]
+}
