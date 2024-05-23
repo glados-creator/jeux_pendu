@@ -131,19 +131,20 @@ public class Pendu extends Application {
         File param_img_tmp = new File("./img/parametres.png");
         System.out.println(param_img_tmp.toURI().toString());
         var param_img = new ImageView(new Image(param_img_tmp.toURI().toString()));
-        boutonMaison.setGraphic(param_img);
+        boutonParametres.setGraphic(param_img);
 
         Button info = new Button();
         File info_img_tmp = new File("./img/info.png");
         System.out.println(info_img_tmp.toURI().toString());
         var info_img = new ImageView(new Image(info_img_tmp.toURI().toString()));
-        boutonMaison.setGraphic(info_img);
+        info.setGraphic(info_img);
 
         holder.getChildren().addAll(boutonMaison,boutonParametres,info);
         holder.setAlignment(Pos.CENTER_RIGHT);
         holder.setPrefHeight(100);
         holder.setMaxWidth(Region.USE_PREF_SIZE);
         banniere.getChildren().addAll(l,holder);
+        banniere.setMaxHeight(100);
         return banniere;
     }
 
