@@ -119,32 +119,58 @@ public class Pendu extends Application {
         Pane banniere = new Pane();
         Label l = new Label("Jeu du Pendu");
         HBox holder = new HBox(); 
+        var god = this;
 
         
         boutonMaison = new Button();
         File home_img_tmp = new File("./img/home.png");
         System.out.println(home_img_tmp.toURI().toString());
         var home_img = new ImageView(new Image(home_img_tmp.toURI().toString()));
+        home_img.setFitHeight(20);
+        home_img.setFitWidth(20);
+        boutonMaison.setMaxSize(20,20);
         boutonMaison.setGraphic(home_img);
+        boutonMaison.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                god.modeAccueil();
+            }
+        });
 
         boutonParametres = new Button();
         File param_img_tmp = new File("./img/parametres.png");
         System.out.println(param_img_tmp.toURI().toString());
         var param_img = new ImageView(new Image(param_img_tmp.toURI().toString()));
+        param_img.setFitHeight(20);
+        param_img.setFitWidth(20);
+        boutonParametres.setMaxSize(20,20);
         boutonParametres.setGraphic(param_img);
+        boutonParametres.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                god.modeParametres();
+            }
+        });
 
         Button info = new Button();
         File info_img_tmp = new File("./img/info.png");
         System.out.println(info_img_tmp.toURI().toString());
         var info_img = new ImageView(new Image(info_img_tmp.toURI().toString()));
+        info_img.setFitHeight(20);
+        info_img.setFitWidth(20);
+        info.setMaxSize(20,20);
         info.setGraphic(info_img);
+        info.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+                god.popUpReglesDuJeu().show();
+            }
+        });
 
         holder.getChildren().addAll(boutonMaison,boutonParametres,info);
         holder.setAlignment(Pos.CENTER_RIGHT);
-        holder.setPrefHeight(100);
-        holder.setMaxWidth(Region.USE_PREF_SIZE);
+        banniere.setMaxHeight(20);
         banniere.getChildren().addAll(l,holder);
-        banniere.setMaxHeight(100);
         return banniere;
     }
 
@@ -177,7 +203,7 @@ public class Pendu extends Application {
         bJouer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                god.modeJeu();
+                god.lancePartie();
             }
         });
 
@@ -217,7 +243,7 @@ public class Pendu extends Application {
     }
     /** void modeJeu met l affichage Jeux */
     public void modeJeu(){
-        panelCentral.setCenter(fenetreAccueil_v);
+        panelCentral.setCenter(fenetreJeu_v);
     }
     
     /** void modeParametres */
@@ -227,7 +253,8 @@ public class Pendu extends Application {
 
     /** lance une partie */
     public void lancePartie(){
-        // A implementer
+        popUpPartieEnCours().show();;
+        modeJeu();
     }
 
     /**
@@ -251,6 +278,8 @@ public class Pendu extends Application {
      * @return Alert
      */
     public Alert popUpPartieEnCours(){
+        // RAISE 
+        /// modif pop up verif si bien partie en cour
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
         return alert;
