@@ -16,13 +16,16 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
      * vue du jeu
      */
     private Pendu vuePendu;
-
+    /** private char lettre */
+    private char lettre;
     /**
      * @param modelePendu modèle du jeu
      * @param vuePendu vue du jeu
      */
-    ControleurLettres(MotMystere modelePendu, Pendu vuePendu){
-        // A implémenter
+    ControleurLettres(MotMystere modelePendu, Pendu vuePendu,char lettre){
+        this.modelePendu = modelePendu;
+        this.vuePendu = vuePendu;
+        this.lettre = lettre;
     }
 
     /**
@@ -32,6 +35,7 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
+        modelePendu.essaiLettre(lettre);
+        // TODO : update vue to reckt letter
     }
 }

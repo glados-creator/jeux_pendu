@@ -116,7 +116,11 @@ public class Pendu extends Application {
      * @return le panel contenant le titre du jeu
      */
     private Pane titre(){
+        final int bar_size = 50;
+
         Pane banniere = new Pane();
+        HBox root = new HBox();
+        banniere.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE ,null, new Insets(1))));
         Label l = new Label("Jeu du Pendu");
         HBox holder = new HBox(); 
         var god = this;
@@ -126,9 +130,9 @@ public class Pendu extends Application {
         File home_img_tmp = new File("./img/home.png");
         System.out.println(home_img_tmp.toURI().toString());
         var home_img = new ImageView(new Image(home_img_tmp.toURI().toString()));
-        home_img.setFitHeight(20);
-        home_img.setFitWidth(20);
-        boutonMaison.setMaxSize(20,20);
+        home_img.setFitHeight(bar_size);
+        home_img.setFitWidth(bar_size);
+        boutonMaison.setMaxSize(bar_size,bar_size);
         boutonMaison.setGraphic(home_img);
         boutonMaison.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -141,9 +145,9 @@ public class Pendu extends Application {
         File param_img_tmp = new File("./img/parametres.png");
         System.out.println(param_img_tmp.toURI().toString());
         var param_img = new ImageView(new Image(param_img_tmp.toURI().toString()));
-        param_img.setFitHeight(20);
-        param_img.setFitWidth(20);
-        boutonParametres.setMaxSize(20,20);
+        param_img.setFitHeight(bar_size);
+        param_img.setFitWidth(bar_size);
+        boutonParametres.setMaxSize(bar_size,bar_size);
         boutonParametres.setGraphic(param_img);
         boutonParametres.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -156,9 +160,9 @@ public class Pendu extends Application {
         File info_img_tmp = new File("./img/info.png");
         System.out.println(info_img_tmp.toURI().toString());
         var info_img = new ImageView(new Image(info_img_tmp.toURI().toString()));
-        info_img.setFitHeight(20);
-        info_img.setFitWidth(20);
-        info.setMaxSize(20,20);
+        info_img.setFitHeight(bar_size);
+        info_img.setFitWidth(bar_size);
+        info.setMaxSize(bar_size,bar_size);
         info.setGraphic(info_img);
         info.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -169,8 +173,11 @@ public class Pendu extends Application {
 
         holder.getChildren().addAll(boutonMaison,boutonParametres,info);
         holder.setAlignment(Pos.CENTER_RIGHT);
-        banniere.setMaxHeight(20);
-        banniere.getChildren().addAll(l,holder);
+        banniere.setMaxHeight(bar_size);
+        root.setMaxHeight(bar_size);
+        // setHgrow
+        root.getChildren().addAll(l,holder);
+        banniere.getChildren().add(root);
         return banniere;
     }
 
@@ -198,6 +205,7 @@ public class Pendu extends Application {
      */
     private Pane fenetreAccueil(){
         Pane res = new Pane();
+        res.setBackground(new Background(new BackgroundFill(Color.RED ,null, new Insets(1))));
         bJouer = new Button("Lancer une partie");
         var god = this;
         bJouer.setOnAction(new EventHandler<ActionEvent>() {
