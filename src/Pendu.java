@@ -134,12 +134,7 @@ public class Pendu extends Application {
         home_img.setFitWidth(bar_size);
         boutonMaison.setMaxSize(bar_size,bar_size);
         boutonMaison.setGraphic(home_img);
-        boutonMaison.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                god.modeAccueil();
-            }
-        });
+        boutonMaison.setOnAction(new RetourAccueil(modelePendu, this));
 
         boutonParametres = new Button();
         File param_img_tmp = new File("./img/parametres.png");
