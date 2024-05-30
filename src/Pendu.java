@@ -24,7 +24,6 @@ import java.util.List;
 import java.io.File;
 import java.util.ArrayList;
 
-
 /**
  * Vue du jeu du pendu
  */
@@ -39,7 +38,7 @@ public class Pendu extends Application {
     private ArrayList<Image> lesImages;
     /**
      * Liste qui contient les noms des niveaux
-     */    
+     */
     public List<String> niveaux;
 
     // les différents contrôles qui seront mis à jour ou consultés pour l'affichage
@@ -77,11 +76,11 @@ public class Pendu extends Application {
     private Button boutonParametres;
     /**
      * le bouton Accueil / Maison
-     */    
+     */
     private Button boutonMaison;
     /**
      * le bouton qui permet de (lancer ou relancer une partie
-     */ 
+     */
     private Button bJouer;
     /** private Pane fenetreJeu_v */
     private Pane fenetreJeu_v;
@@ -91,7 +90,8 @@ public class Pendu extends Application {
     private ToggleGroup diff_select;
 
     /**
-     * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
+     * initialise les attributs (créer le modèle, charge les images, crée le chrono
+     * ...)
      */
     @Override
     public void init() {
@@ -103,9 +103,9 @@ public class Pendu extends Application {
     }
 
     /**
-     * @return  le graphe de scène de la vue à partir de methodes précédantes
+     * @return le graphe de scène de la vue à partir de methodes précédantes
      */
-    private Scene laScene(){
+    private Scene laScene() {
         BorderPane fenetre = new BorderPane();
         fenetre.setTop(this.titre());
         panelCentral = new BorderPane();
@@ -116,24 +116,23 @@ public class Pendu extends Application {
     /**
      * @return le panel contenant le titre du jeu
      */
-    private Pane titre(){
+    private Pane titre() {
         final int bar_size = 50;
 
         Pane banniere = new Pane();
         HBox root = new HBox();
-        banniere.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE ,null, new Insets(1))));
+        banniere.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, new Insets(1))));
         Label l = new Label("Jeu du Pendu");
-        HBox holder = new HBox(); 
+        HBox holder = new HBox();
         var god = this;
 
-        
         boutonMaison = new Button();
         File home_img_tmp = new File("./img/home.png");
         System.out.println(home_img_tmp.toURI().toString());
         var home_img = new ImageView(new Image(home_img_tmp.toURI().toString()));
         home_img.setFitHeight(bar_size);
         home_img.setFitWidth(bar_size);
-        boutonMaison.setMaxSize(bar_size,bar_size);
+        boutonMaison.setMaxSize(bar_size, bar_size);
         boutonMaison.setGraphic(home_img);
         boutonMaison.setOnAction(new RetourAccueil(modelePendu, this));
 
@@ -143,7 +142,7 @@ public class Pendu extends Application {
         var param_img = new ImageView(new Image(param_img_tmp.toURI().toString()));
         param_img.setFitHeight(bar_size);
         param_img.setFitWidth(bar_size);
-        boutonParametres.setMaxSize(bar_size,bar_size);
+        boutonParametres.setMaxSize(bar_size, bar_size);
         boutonParametres.setGraphic(param_img);
         boutonParametres.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -158,16 +157,16 @@ public class Pendu extends Application {
         var info_img = new ImageView(new Image(info_img_tmp.toURI().toString()));
         info_img.setFitHeight(bar_size);
         info_img.setFitWidth(bar_size);
-        info.setMaxSize(bar_size,bar_size);
+        info.setMaxSize(bar_size, bar_size);
         info.setGraphic(info_img);
         info.setOnAction(new ControleurInfos(this));
 
-        holder.getChildren().addAll(boutonMaison,boutonParametres,info);
+        holder.getChildren().addAll(boutonMaison, boutonParametres, info);
         holder.setAlignment(Pos.CENTER_RIGHT);
         banniere.setMaxHeight(bar_size);
         root.setMaxHeight(bar_size);
         // setHgrow
-        root.getChildren().addAll(l,holder);
+        root.getChildren().addAll(l, holder);
         banniere.getChildren().add(root);
         return banniere;
     }
@@ -175,12 +174,12 @@ public class Pendu extends Application {
     /**
      * @return le panel du chronomètre
      */
-    private TitledPane leChrono(){
+    private TitledPane leChrono() {
         HBox node = new HBox();
         this.chrono = new Chronometre();
         this.chrono.start();
         node.getChildren().add(this.chrono);
-        TitledPane res = new TitledPane("",node);
+        TitledPane res = new TitledPane("", node);
         return res;
     }
 
@@ -188,151 +187,167 @@ public class Pendu extends Application {
      * @return la fenêtre de jeu avec le mot crypté, l'image, la barre
      *         de progression et le clavier
      */
-    private Pane fenetreJeu(){
+    private Pane fenetreJeu() {
         GridPane res = new GridPane();
         res.add(this.dessin, 0, 0);
-        res.add(leChrono(), 0, 1);
-        res.add(this.clavier, 1, 0);
-        var god = this;
+        VBox tmp = new VBox();
         Button reset = new Button("avoir un autre mot");
+        var god = this;
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 god.lancePartie();
             }
         });
-        res.add(reset, 1, 1);
+        tmp.getChildren().addAll(this.leNiveau,leChrono(),reset);
+        res.add(tmp, 0, 1);
+        res.add(this.clavier, 1, 0);
         return res;
     }
 
     /**
-     * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de jeu
+     * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de
+     *         jeu
      */
-    private Pane fenetreAccueil(){
+    private Pane fenetreAccueil() {
         Pane res = new Pane();
-        res.setBackground(new Background(new BackgroundFill(Color.RED ,null, new Insets(1))));
+        res.setBackground(new Background(new BackgroundFill(Color.RED, null, new Insets(1))));
         bJouer = new Button("Lancer une partie");
         var god = this;
-        bJouer.setOnAction(new ControleurLancerPartie(modelePendu,this));
+        bJouer.setOnAction(new ControleurLancerPartie(modelePendu, this));
 
         VBox inner = new VBox();
         diff_select = new ToggleGroup();
         var tg = diff_select;
         god.niveaux = new ArrayList<>();
-        for (MotMystere.Difficulter diff : MotMystere.Difficulter.values()){
+        for (MotMystere.Difficulter diff : MotMystere.Difficulter.values()) {
             RadioButton tmp = new RadioButton(diff.name());
-            tmp.setToggleGroup(tg); 
+            tmp.setToggleGroup(tg);
             god.niveaux.add(diff.name());
             inner.getChildren().add(tmp);
         }
-        ((RadioButton)inner.getChildren().get(0)).fire();
-        TitledPane holder = new TitledPane("Niveau de difficulter",inner);
+        ((RadioButton) inner.getChildren().get(0)).fire();
+        TitledPane holder = new TitledPane("Niveau de difficulter", inner);
         holder.setExpanded(true);
         holder.setCollapsible(false);
-        res.getChildren().addAll(bJouer,holder);
+        res.getChildren().addAll(bJouer, holder);
         return res;
     }
 
     /**
      * charge les images à afficher en fonction des erreurs
+     * 
      * @param repertoire répertoire où se trouvent les images
      */
-    private void chargerImages(String repertoire){
-        for (int i=0; i<this.modelePendu.getNbErreursMax()+1; i++){
-            File file = new File(repertoire+"/pendu"+i+".png");
+    private void chargerImages(String repertoire) {
+        for (int i = 0; i < this.modelePendu.getNbErreursMax() + 1; i++) {
+            File file = new File(repertoire + "/pendu" + i + ".png");
             System.out.println(file.toURI().toString());
             this.lesImages.add(new Image(file.toURI().toString()));
         }
     }
 
     /** void modeAccueil met l affichage Accueil */
-    public void modeAccueil(){
+    public void modeAccueil() {
         panelCentral.setCenter(fenetreAccueil_v);
     }
+
     /** void modeJeu met l affichage Jeux */
-    public void modeJeu(){
+    public void modeJeu() {
         panelCentral.setCenter(fenetreJeu_v);
     }
-    
+
     /** void modeParametres */
-    public void modeParametres(){
+    public void modeParametres() {
         popUpReglesDuJeu().showAndWait();
     }
 
     /** lance une partie */
-    public void lancePartie(){
-        // TODO : detect PartieEnCours 
+    public void lancePartie() {
+        // TODO : detect PartieEnCours
         // if (false) popUpPartieEnCours().show();
-        this.clavier = new Clavier("abcdefghijklmnopqrstuvwxyz", (String l)->{return new ControleurLettres(this.modelePendu,this,l.charAt(0));}, 8);
+        this.clavier = new Clavier("abcdefghijklmnopqrstuvwxyz", (String l) -> {
+            return new ControleurLettres(this.modelePendu, this, l.charAt(0));
+        }, 8);
         var tmp = this.diff_select.getSelectedToggle().getUserData();
-        System.out.println("toogle user data : "+tmp);
-        this.modelePendu = new MotMystere("a", MotMystere.Difficulter.FACILE.value(), 0)
+        System.out.println("toogle user data : " + tmp);
+        this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.Difficulter.FACILE.value(), 10);
+        // TODO : set niveau text
+        this.leNiveau.setText("difficulter ici");
+        fenetreJeu_v = fenetreJeu();
         modeJeu();
     }
 
     /**
      * raffraichit l'affichage selon les données du modèle
      */
-    public void majAffichage(){
+    public void majAffichage() {
         // A implementer
         // ?????
     }
 
     /**
      * accesseur du chronomètre (pour les controleur du jeu)
+     * 
      * @return le chronomètre du jeu
      */
-    public Chronometre getChrono(){
+    public Chronometre getChrono() {
         return this.chrono;
     }
 
     /**
      * popUpPartieEnCours
+     * 
      * @return Alert
      */
-    public Alert popUpPartieEnCours(){
-        // RAISE 
+    public Alert popUpPartieEnCours() {
+        // RAISE
         /// modif pop up verif si bien partie en cour
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
         return alert;
     }
-        
+
     /**
      * popUpReglesDuJeu
+     * 
      * @return Alert
      */
-    public Alert popUpReglesDuJeu(){
+    public Alert popUpReglesDuJeu() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("regle du jeux");
         alert.setContentText("ici les regles du pendu ; google ");
         return alert;
     }
-    
+
     /**
      * popUpMessageGagne
+     * 
      * @return Alert
      */
-    public Alert popUpMessageGagne(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION); 
+    public Alert popUpMessageGagne() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("win");
-        alert.setContentText("vous avez gagné");       
+        alert.setContentText("vous avez gagné");
         return alert;
     }
-    
+
     /**
      * popUpMessagePerdu
+     * 
      * @return Alert Alert
      */
-    public Alert popUpMessagePerdu(){
+    public Alert popUpMessagePerdu() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("lose");
-        alert.setContentText("vous avez perdu");       
+        alert.setContentText("vous avez perdu");
         return alert;
     }
 
     /**
      * créer le graphe de scène et lance le jeu
+     * 
      * @param stage la fenêtre principale
      */
     @Override
@@ -345,9 +360,10 @@ public class Pendu extends Application {
 
     /**
      * Programme principal
+     * 
      * @param args the terminal vargs unused
      */
     public static void main(String[] args) {
         launch(args);
-    }    
+    }
 }
