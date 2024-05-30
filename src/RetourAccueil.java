@@ -1,7 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ButtonType;
-import java.util.Optional;
+// import javafx.scene.control.ButtonType;
+// import java.util.Optional;
 
 /**
  * Contrôleur à activer lorsque l'on clique sur le bouton Accueil
@@ -10,6 +10,7 @@ public class RetourAccueil implements EventHandler<ActionEvent> {
     /**
      * modèle du jeu
      */
+    @SuppressWarnings("unused")
     private MotMystere modelePendu;
     /**
      * vue du jeu
