@@ -99,7 +99,6 @@ public class Pendu extends Application {
         this.lesImages = new ArrayList<Image>();
         this.chargerImages("./img");
         this.fenetreAccueil_v = fenetreAccueil();
-        this.fenetreJeu_v = fenetreJeu();
     }
 
     /**
@@ -230,7 +229,10 @@ public class Pendu extends Application {
         TitledPane holder = new TitledPane("Niveau de difficulter", inner);
         holder.setExpanded(true);
         holder.setCollapsible(false);
-        res.getChildren().addAll(bJouer, holder);
+
+        VBox content = new VBox();
+        content.getChildren().addAll(bJouer,holder);
+        res.getChildren().addAll(content);
         return res;
     }
 
