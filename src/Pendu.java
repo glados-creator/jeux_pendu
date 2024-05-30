@@ -1,13 +1,14 @@
+import javafx.animation.KeyFrame;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+// import javafx.beans.value.ChangeListener;
+// import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.text.Font;
+// import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
+// import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,11 +16,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.control.ButtonBar.ButtonData ;
+// import javafx.scene.text.TextAlignment;
+// import javafx.scene.control.ButtonBar.ButtonData ;
 
 import java.util.List;
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -159,12 +160,7 @@ public class Pendu extends Application {
         info_img.setFitWidth(bar_size);
         info.setMaxSize(bar_size,bar_size);
         info.setGraphic(info_img);
-        info.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                god.popUpReglesDuJeu().show();
-            }
-        });
+        info.setOnAction(new ControleurInfos(this));
 
         holder.getChildren().addAll(boutonMaison,boutonParametres,info);
         holder.setAlignment(Pos.CENTER_RIGHT);
@@ -180,8 +176,10 @@ public class Pendu extends Application {
      * @return le panel du chronomètre
      */
     private TitledPane leChrono(){
-        // A implementer
-        TitledPane res = new TitledPane();
+        HBox node = new HBox();
+        this.chrono = new Chronometre();
+        node.getChildren().add(this.chrono);
+        TitledPane res = new TitledPane("",node);
         return res;
     }
 
@@ -203,12 +201,7 @@ public class Pendu extends Application {
         res.setBackground(new Background(new BackgroundFill(Color.RED ,null, new Insets(1))));
         bJouer = new Button("Lancer une partie");
         var god = this;
-        bJouer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                god.lancePartie();
-            }
-        });
+        bJouer.setOnAction(new ControleurLancerPartie(modelePendu,this));
 
         VBox inner = new VBox();
         diff_select = new ToggleGroup();
@@ -217,7 +210,7 @@ public class Pendu extends Application {
         for (MotMystere.Difficulter diff : MotMystere.Difficulter.values()){
             RadioButton tmp = new RadioButton(diff.name());
             tmp.setToggleGroup(tg); 
-            god.niveaux.add(diff.name()); /// JSP
+            god.niveaux.add(diff.name());
             inner.getChildren().add(tmp);
         }
         ((RadioButton)inner.getChildren().get(0)).fire();
@@ -251,12 +244,13 @@ public class Pendu extends Application {
     
     /** void modeParametres */
     public void modeParametres(){
-        // A implémenter
+        popUpReglesDuJeu().showAndWait();
     }
 
     /** lance une partie */
     public void lancePartie(){
-        popUpPartieEnCours().show();;
+        // TODO : detect PartieEnCours 
+        // if (false) popUpPartieEnCours().show();
         modeJeu();
     }
 
@@ -265,6 +259,7 @@ public class Pendu extends Application {
      */
     public void majAffichage(){
         // A implementer
+        // ?????
     }
 
     /**
@@ -272,8 +267,7 @@ public class Pendu extends Application {
      * @return le chronomètre du jeu
      */
     public Chronometre getChrono(){
-        // A implémenter
-        return null; // A enlever
+        return this.chrono;
     }
 
     /**
@@ -293,8 +287,9 @@ public class Pendu extends Application {
      * @return Alert
      */
     public Alert popUpReglesDuJeu(){
-        // A implementer
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("regle du jeux");
+        alert.setContentText("ici les regles du pendu ; google ");
         return alert;
     }
     
@@ -303,8 +298,9 @@ public class Pendu extends Application {
      * @return Alert
      */
     public Alert popUpMessageGagne(){
-        // A implementer
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); 
+        alert.setTitle("win");
+        alert.setContentText("vous avez gagné");       
         return alert;
     }
     
@@ -313,8 +309,9 @@ public class Pendu extends Application {
      * @return Alert Alert
      */
     public Alert popUpMessagePerdu(){
-        // A implementer    
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("lose");
+        alert.setContentText("vous avez perdu");       
         return alert;
     }
 
