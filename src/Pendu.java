@@ -178,6 +178,7 @@ public class Pendu extends Application {
     private TitledPane leChrono(){
         HBox node = new HBox();
         this.chrono = new Chronometre();
+        this.chrono.start();
         node.getChildren().add(this.chrono);
         TitledPane res = new TitledPane("",node);
         return res;
@@ -188,8 +189,19 @@ public class Pendu extends Application {
      *         de progression et le clavier
      */
     private Pane fenetreJeu(){
-        // A implementer
-        Pane res = new Pane();
+        GridPane res = new GridPane();
+        res.add(this.dessin, 0, 0);
+        res.add(leChrono(), 0, 1);
+        res.add(this.clavier, 1, 0);
+        var god = this;
+        Button reset = new Button("avoir un autre mot");
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                god.lancePartie();
+            }
+        });
+        res.add(reset, 1, 1);
         return res;
     }
 
@@ -251,6 +263,10 @@ public class Pendu extends Application {
     public void lancePartie(){
         // TODO : detect PartieEnCours 
         // if (false) popUpPartieEnCours().show();
+        this.clavier = new Clavier("abcdefghijklmnopqrstuvwxyz", (String l)->{return new ControleurLettres(this.modelePendu,this,l.charAt(0));}, 8);
+        var tmp = this.diff_select.getSelectedToggle().getUserData();
+        System.out.println("toogle user data : "+tmp);
+        this.modelePendu = new MotMystere("a", MotMystere.Difficulter.FACILE.value(), 0)
         modeJeu();
     }
 

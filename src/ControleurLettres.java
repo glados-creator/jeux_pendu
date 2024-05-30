@@ -15,6 +15,7 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
     /**
      * vue du jeu
      */
+    @SuppressWarnings("unused")
     private Pendu vuePendu;
     /** private char lettre */
     private char lettre;
