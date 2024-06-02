@@ -40,7 +40,7 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
             vuePendu.lancePartie();
         }
         else{
-            ;
+            vuePendu.modeJeu();
         }
     }
 }

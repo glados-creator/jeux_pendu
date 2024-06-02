@@ -29,7 +29,7 @@ public class Clavier extends TilePane{
         this.setPrefColumns(13);
         this.setMaxWidth(Region.USE_PREF_SIZE);
         for (int i = 0; i < touches.length(); i++) {
-            Button tmp = new Button();
+            Button tmp = new Button(String.valueOf((char)((int)'a'+i)));
             tmp.setOnAction(actionTouches.apply(String.valueOf(touches.charAt(i))));
             this.clavier.add(tmp);
             this.getChildren().add(tmp);
