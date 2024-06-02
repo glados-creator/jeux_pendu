@@ -128,10 +128,12 @@ public class Pendu extends Application {
         var god = this;
         sc.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             String tmp = event.getText();
-            System.out.println(tmp);
-            if (god.alphabet.contains(tmp)) {
-                god.modelePendu.essaiLettre(tmp.charAt(0));
-                god.essaiLettre();
+            if (tmp.length() == 1 && Character.isLetter(tmp.charAt(0))){
+                // System.out.println("lettre : "+tmp+" yes? : "+(god.alphabet.contains(tmp) && ((int)tmp.charAt(0) >= (int)'a' && (int)tmp.charAt(0) <= (int)'z')));
+                if (god.alphabet.contains(tmp) && ((int)tmp.charAt(0) >= (int)'a' && (int)tmp.charAt(0) <= (int)'z')) {
+                    god.modelePendu.essaiLettre(tmp.charAt(0));
+                    god.essaiLettre();
+                }
             }
         });
         return sc;

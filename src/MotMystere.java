@@ -275,6 +275,7 @@ public class MotMystere {
         this.nbEssais += 1;
         // Si aucune lettre n'a été trouvée, le nombre d'erreurs restante diminue de 1
         if (nbNouvelles == 0){
+            System.out.println("nope");
             this.nbErreursRestantes-=1;
         }
         return nbNouvelles;
