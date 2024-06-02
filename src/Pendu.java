@@ -4,7 +4,7 @@ import javafx.application.Application;
 // import javafx.beans.value.ChangeListener;
 // import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
+// import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 // import javafx.scene.text.Font;
@@ -200,6 +200,7 @@ public class Pendu extends Application {
     /**
      * @return le panel du chronomètre
      */
+    @SuppressWarnings("unused")
     private TitledPane leChrono() {
         HBox node = new HBox();
         this.chrono = new Chronometre();

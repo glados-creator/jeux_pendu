@@ -42,7 +42,7 @@ public class Clavier extends TilePane{
      */
     public void desactiveTouches(Set<String> touchesDesactivees){
         for (String current : touchesDesactivees){
-            this.clavier.get((int)current.charAt(0)-'a').setDisable(true);
+            this.clavier.get((int)current.toLowerCase().charAt(0)-'a').setDisable(true);
         }
     }
 

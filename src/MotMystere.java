@@ -40,7 +40,7 @@ public class MotMystere {
                 reverse.put(e.inner, e);
             }
         }
-        /** 
+        /**
          * FromValue
          * @param inner the start int
          * @return Difficulter the enum value
@@ -49,7 +49,7 @@ public class MotMystere {
             return reverse.get(inner);
         }
     };
-   
+
 
     /**
      * le mot à trouver
@@ -130,7 +130,7 @@ public class MotMystere {
         this.lettresEssayees = new HashSet<>();
 
         nbLettresRestantes=0;
-        
+
         if (niveau == Difficulter.EXPERT || niveau == Difficulter.DIFFICILE){
             motCrypte = "*"; // premiere lettre cachée
             this.nbLettresRestantes+=1;
@@ -138,18 +138,18 @@ public class MotMystere {
         else{
             motCrypte += this.motATrouver.charAt(0); // premiere lettre révélée
         }
-        
+
         for (int i=1; i<motATrouver.length()-1; i++){
             char lettre = this.motATrouver.charAt(i);
             if (this.niveau == Difficulter.EXPERT || Character.isAlphabetic(lettre)){
                 motCrypte += "*"; // lettre cachée
                 this.nbLettresRestantes += 1;
-            }   
+            }
             else{
                 motCrypte += lettre; // lettre révélée si c'est un trait d'union ET qu'on n'est pas en mode Expert
             }
         }
-        
+
         if (niveau != Difficulter.FACILE){ // dernière lettre révélée
             motCrypte += "*";
             this.nbLettresRestantes += 1;
@@ -256,14 +256,18 @@ public class MotMystere {
 
     /**
      * permet au joueur d'essayer une lettre
-     * @param lettre la lettre essayée par le joueur
+     * @param let la lettre essayée par le joueur
      * @return le nombre de fois où la lettre apparait dans le mot à trouver
      */
-    public int essaiLettre(char lettre){
+    public int essaiLettre(char let){
+        char lettre = String.valueOf(let).toUpperCase().charAt(0);
+        // System.out.println("lettre a trouver "+lettre);
         int nbNouvelles = 0;
         char[] aux = this.motCrypte.toCharArray();
         for (int i=0; i<this.motATrouver.length(); i++){
+            // System.out.println("lettre mot : "+this.motATrouver.charAt(i)+" "+(this.motATrouver.charAt(i) == lettre));
             if (this.motATrouver.charAt(i) == lettre && this.motCrypte.charAt(i) == '*'){
+                System.out.println("trouver");
                 nbNouvelles += 1;
                 aux[i] = lettre;
             }
@@ -276,6 +280,7 @@ public class MotMystere {
         // Si aucune lettre n'a été trouvée, le nombre d'erreurs restante diminue de 1
         if (nbNouvelles == 0){
             System.out.println("nope");
+            if (!(this.motCrypte.contains(String.valueOf(lettre))))
             this.nbErreursRestantes-=1;
         }
         return nbNouvelles;
