@@ -306,6 +306,7 @@ public class Pendu extends Application {
         this.chrono.resetTime();
         this.modelePendu.setNiveau(diff.value());
         this.modelePendu.setMotATrouver();
+        this.dessin.setImage(this.lesImages.get(0));
         System.out.println(this.modelePendu.getMotATrouve());
         this.motCrypte.setText(this.modelePendu.getMotCrypte());
         modeJeu();
@@ -379,12 +380,15 @@ public class Pendu extends Application {
     /** void essaiLettre */
     public void essaiLettre() {
         this.clavier.desactiveTouches(this.modelePendu.getLettresEssayees());
-        if (this.modelePendu.gagne()) popUpMessageGagne();
-        if (this.modelePendu.perdu()) popUpMessagePerdu();
+        // System.out.println("gange "+this.modelePendu.gagne()+" perd "+this.modelePendu.perdu());
+        if (this.modelePendu.gagne()) popUpMessageGagne().show();
+        if (this.modelePendu.perdu()) popUpMessagePerdu().show();
         int index = (int) ((1 - (double) this.modelePendu.getNbErreursRestants() / this.modelePendu.getNbErreursMax()) * (this.lesImages.size() - 1));
+        index = Math.max(0, Math.min(this.lesImages.size()-1, index));
         // System.out.println("size : "+this.lesImages.size()+" , index : "+index);
         this.dessin.setImage(this.lesImages.get(index));
         this.motCrypte.setText(this.modelePendu.getMotCrypte());
+        // System.out.println("lettre restant "+this.modelePendu.getNbLettresRestantes()+" esssaie "+this.modelePendu.getNbEssais()+" erreur reste "+this.modelePendu.getNbErreursRestants());
     }
 
     /**

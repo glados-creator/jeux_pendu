@@ -267,7 +267,6 @@ public class MotMystere {
         for (int i=0; i<this.motATrouver.length(); i++){
             // System.out.println("lettre mot : "+this.motATrouver.charAt(i)+" "+(this.motATrouver.charAt(i) == lettre));
             if (this.motATrouver.charAt(i) == lettre && this.motCrypte.charAt(i) == '*'){
-                System.out.println("trouver");
                 nbNouvelles += 1;
                 aux[i] = lettre;
             }
@@ -279,7 +278,6 @@ public class MotMystere {
         this.nbEssais += 1;
         // Si aucune lettre n'a été trouvée, le nombre d'erreurs restante diminue de 1
         if (nbNouvelles == 0){
-            System.out.println("nope");
             if (!(this.motCrypte.contains(String.valueOf(lettre))))
             this.nbErreursRestantes-=1;
         }
