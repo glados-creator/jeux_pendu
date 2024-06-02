@@ -42,7 +42,14 @@ public class Clavier extends TilePane{
      */
     public void desactiveTouches(Set<String> touchesDesactivees){
         for (String current : touchesDesactivees){
-            this.clavier.get((int)current.charAt(0)-'a').setDisable(true); // why isn t the handler that self disable ?
+            this.clavier.get((int)current.charAt(0)-'a').setDisable(true);
+        }
+    }
+
+    /** void reset */
+    public void reset(){
+        for(Button b : this.clavier){
+            b.setDisable(false); 
         }
     }
 }

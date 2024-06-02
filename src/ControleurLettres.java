@@ -1,7 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+// import javafx.scene.control.Alert;
+// import javafx.scene.control.Button;
 
 /**
  * Controleur du clavier
@@ -15,7 +15,6 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
     /**
      * vue du jeu
      */
-    @SuppressWarnings("unused")
     private Pendu vuePendu;
     /** private char lettre */
     private char lettre;
@@ -37,6 +36,6 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         modelePendu.essaiLettre(lettre);
-        // TODO : update vue to reckt letter
+        vuePendu.essaiLettre();
     }
 }

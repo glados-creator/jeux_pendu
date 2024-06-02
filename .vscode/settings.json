@@ -8,6 +8,14 @@
         "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.media.jar",
         "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.swing.jar",
         "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx.web.jar",
-        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx-swt.jar"
+        "/media/o22302615/PAVARDARTHU/javafx-sdk-22.0.1/lib/javafx-swt.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.base.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.controls.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.fxml.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.graphics.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.media.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.swing.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx.web.jar",
+        "/home/glados/Downloads/javafx-sdk-22.0.1/lib/javafx-swt.jar"
     ]
 }

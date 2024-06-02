@@ -273,6 +273,7 @@ public class Pendu extends Application {
         }, 8);
         var tmp = this.diff_select.getSelectedToggle().getUserData();
         System.out.println("toogle user data : " + tmp);
+        // TODO : user data is null
         this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.Difficulter.FACILE.value(), 10);
         // TODO : set niveau text
         this.leNiveau.setText("difficulter ici");
@@ -345,6 +346,11 @@ public class Pendu extends Application {
         alert.setTitle("lose");
         alert.setContentText("vous avez perdu");
         return alert;
+    }
+
+    /** void essaiLettre */
+    public void essaiLettre(){
+        this.clavier.desactiveTouches(this.modelePendu.getLettresEssayees());
     }
 
     /**
